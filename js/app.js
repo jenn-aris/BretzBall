@@ -1,15 +1,20 @@
 var app = {
   //position initial du joueur
-  player: {
+    player: {
       x: 0,
       y: 0,
       direction: 'right'
     },
-  //position de l'objectif a atteindre
-  targetCell: {
+    //position de l'objectif a atteindre
+    targetCell: {
       x: 5,
       y: 3,
-  },
+    },
+    //je défini la taille de la grille
+    board: {
+      height: 4,
+      width: 6
+    },
   init: function () {
     console.log('init !');
     //j'execute le dessin de la grille
@@ -17,16 +22,13 @@ var app = {
     },
   //méthode qui a la responsabilité de dessiner la grille
   drawBoard : function () {
-    //je défini les dimensions de ma grille:
-    var height = 4;
-    var width = 6;
     //on creer une boucle dans une boucle
-    for ( var rowCounter = 0 ; rowCounter < height ; rowCounter++) {    
+    for ( var rowCounter = 0 ; rowCounter < app.board.height ; rowCounter++) {    
       // dans un premier temps j'ai mis : console.log('je creer une ligne - ligne numéro ' + rowCounter );
       //a présent c'est une vrai methode que je vais exécuter.
       var newRowElement = app.createLine();
 
-      for ( var cellCounter = 0 ; cellCounter < width ; cellCounter++ ) {
+      for ( var cellCounter = 0 ; cellCounter < app.board.width ; cellCounter++ ) {
       //dans un premier temps j'ai mis : console.log('je creer une case - case numéro ' + cellCounter );
       //a présent c'est une vrai methode que je vais éxécuter.
        app.createCell(newRowElement);
