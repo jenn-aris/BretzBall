@@ -17,6 +17,8 @@ var app = {
     },
   init: function () {
     console.log('init !');
+    //je défini une nouvelle propriété 
+    app.board.element = document.getElementById('board');
     //j'execute le dessin de la grille
     app.drawBoard()
     },
@@ -45,11 +47,14 @@ var app = {
         }
         if (cellCounter === app.player.x && rowCounter === app.player.y ) {
            //on va ajouter une div dans la currentCell
+           //on transmet en argument currentCell a la fonction addPlayer
            app.addPlayer(currentCell);
          }
       }
     }
   },
+  //méthode qui a la responsabilité de creer le joueur
+  //addPlayer recupère en paramètre la valeur de currentCell
   addPlayer : function (parentCellElement) {
     // creer une div
     var playerElement = document.createElement('div');
@@ -63,10 +68,8 @@ var app = {
    var rowElement = document.createElement('div');
    //je lui donne une class
    rowElement.className = 'row' ;
-   //on mémorise le parent et on le cible
-   var parentElement = document.getElementById('board');
-   // l'insufler dans le DOM
-   parentElement.appendChild(rowElement);
+   // on cible le parent et on l'insufler dans le DOM
+   app.board.element.appendChild(rowElement);
    //retourner cette ligne nouvellement créer.
    return rowElement;
   },
@@ -83,9 +86,11 @@ var app = {
     parentRowElement.appendChild(cellElement);
     //retourner cette colonne nouvellement créer.
     return cellElement;
-  }
+  },
+  clearboard : function () {
+   app.board.element.innerHTML = '';
+  },
 }
-
 document.addEventListener('DOMContentLoaded', app.init);
 
 
