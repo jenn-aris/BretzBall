@@ -87,8 +87,13 @@ var app = {
     //retourner cette colonne nouvellement créer.
     return cellElement;
   },
-  clearboard : function () {
+  clearBoard : function () {
    app.board.element.innerHTML = '';
+  },
+  redrawBoard : function () {
+    //je vait appeller la methode qui peux effacer la grille, puis celle qui dessine la grille
+    app.clearBoard();
+    app.drawBoard();
   },
 }
 document.addEventListener('DOMContentLoaded', app.init);
