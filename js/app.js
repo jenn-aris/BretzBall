@@ -47,7 +47,7 @@ var app = {
   },
 
   createCell : function(parentRowElement) {
-    //contrairement a createLine, createCell a besoin de paramètres, notamment son parent
+    //contrairement a createLine, createCell a besoin d'un paramètre
     // afin de savoir de combien de cellules on aura besoin.
     //on applique la même recette que pour createLine
     //je créer un élément div pour le document
@@ -56,10 +56,7 @@ var app = {
     cellElement.className = 'cell';
     //on cible le parent pour lui insufler son enfant.
     parentRowElement.appendChild(cellElement);
-
-
   }
-
 }
 document.addEventListener('DOMContentLoaded', app.init);
 

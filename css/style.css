@@ -11,3 +11,15 @@ body {
 
   margin: 20px;
 }
+
+.row {
+ display : flex;
+}
+
+.cell {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  border: 1px solid black;
+
+}
