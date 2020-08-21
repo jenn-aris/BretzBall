@@ -23,3 +23,7 @@ body {
   border: 1px solid black;
 
 }
+
+.cell--target {
+  background-color: green;
+}

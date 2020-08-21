@@ -31,9 +31,32 @@ var app = {
       for ( var cellCounter = 0 ; cellCounter < app.board.width ; cellCounter++ ) {
       //dans un premier temps j'ai mis : console.log('je creer une case - case numéro ' + cellCounter );
       //a présent c'est une vrai methode que je vais éxécuter.
-       app.createCell(newRowElement);
+       var currentCell = app.createCell(newRowElement);
+       // ici on a la cellule courante, celle qui viens d'être créer.
+       // je pose un debugger pour verifier ce que je fais localement et globalement.
+       //debugger;
+       //j'obtiens ses propriétés et les coordonées de la case courante (colonne et ligne). 
+     
+       //je vais cibler la case d'arrivée pour la coloré.
+       //ici on a une comparaison avec une opération logique qui nous donne un resultat booléen
+        if (cellCounter === app.targetCell.x && rowCounter === app.targetCell.y ) {
+         //alors on ajoute la classe CSS targetCell à la case
+         currentCell.classList.add('cell--target');
+        }
+        if (cellCounter === app.player.x && rowCounter === app.player.y ) {
+           //on va ajouter une div dans la currentCell
+           app.addPlayer(currentCell);
+         }
       }
     }
+  },
+  addPlayer : function (parentCellElement) {
+    // creer une div
+    var playerElement = document.createElement('div');
+    //lui ajouter la class 'player'
+    playerElement.className = 'player';
+    //cibler le parent et on lui insuffle player dedans
+    parentCellElement.appendChild(playerElement);
   },
   createLine : function() {
    //je vais créer un élément div pour le document
@@ -58,8 +81,11 @@ var app = {
     cellElement.className = 'cell';
     //on cible le parent pour lui insufler son enfant.
     parentRowElement.appendChild(cellElement);
+    //retourner cette colonne nouvellement créer.
+    return cellElement;
   }
 }
+
 document.addEventListener('DOMContentLoaded', app.init);
 
 
