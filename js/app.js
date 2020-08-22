@@ -59,7 +59,7 @@ var app = {
     // creer une div
     var playerElement = document.createElement('div');
     //lui ajouter la class 'player'
-    playerElement.className = 'player';
+    playerElement.className = 'player ' + app.player.direction;
     //cibler le parent et on lui insuffle player dedans
     parentCellElement.appendChild(playerElement);
   },
@@ -97,43 +97,78 @@ var app = {
   },
   turnLeft : function() {
     //tourner à gauche c'est changer la direction du joueur.
+   
+    switch(app.player.direction){
     //si on regarde en haut
-      if (app.player.direction === 'up') {
+     case "up" :
         //alors on regarde à gauche
         app.player.direction = 'left';
-      }
-    //sinon on regarde à gauche
-      else if (app.player.direction === 'left') {
+      break;
+    //si on regarde à gauche
+      case 'left':
         //alors on regarde vers le bas
         app.player.direction = 'down';
-      }
+      break;
     //si on regarde en bas
-      else if (app.player.direction === 'down') {
+      case 'down':
         //alors on regarde à droite
         app.player.direction = 'right';
-      }
+      break
     //si on  regarde vers le haut
-      else app.player.direction = 'up';
+      default :
+       'up';
+    }
+    app.redrawBoard();
   },
   turnRight : function() {
     //tourner à droite c'est changer la direction du joueur.
     //si on regarde en haut
       if (app.player.direction === 'up') {
-        //alors on regarde à gauche
+        //alors on regarde à droite
         app.player.direction = 'right';
       }
     //sinon on regarde à gauche
       else if (app.player.direction === 'left') {
-        //alors on regarde vers le bas
+        //alors on regarde vers le haut
         app.player.direction = 'up';
       }
     //si on regarde en bas
       else if (app.player.direction === 'down') {
-        //alors on regarde à droite
+        //alors on regarde à gauche
         app.player.direction = 'left';
       }
-    //si on  regarde vers le haut
-      else app.player.direction = 'down';
+    //sinon
+      else { 
+        //si on  regarde vers le bas
+        app.player.direction = 'down';
+      }
+    app.redrawBoard();
+  },
+  moveFoward : function () {
+    //attention ! Le joueur ne doit pas sortir de la grille
+    switch (app.player.direction) {
+      //soit la direction est right
+      case 'right':
+        // alors j'augmente X de 1
+        app.player.x++;
+        break;
+        //soit la direction est left
+      case 'left':
+        //alors je diminu X de 1
+        app.player.x--;
+        break;
+        //soit la direction est up
+      case 'up':
+        //alors je diminue Y de 1
+        app.player.y--;
+        break;
+        //soit la direction est down 
+      default:
+        //alors j'augmente Y de 1 
+        app.player.y++;
+    }
+    // j'ai modifié la position, maintenant je peux redessiner la grille
+    app.redrawBoard();
   },
 }
 document.addEventListener('DOMContentLoaded', app.init);
