@@ -146,26 +146,49 @@ var app = {
   },
   moveFoward : function () {
     //attention ! Le joueur ne doit pas sortir de la grille
-    switch (app.player.direction) {
-      //soit la direction est right
-      case 'right':
-        // alors j'augmente X de 1
+    //soit la direction est right
+    if (app.player.direction === 'right') {
+      //si le joueur est sur la grille
+      if (app.player.x + 1 < app.board.width) {
+        // alors j'avance et j'augmente X de 1
         app.player.x++;
-        break;
-        //soit la direction est left
-      case 'left':
+      }
+      else {
+        console.log("sorry, you can't move foward")
+      }
+    }
+    //soit la direction est left
+    else if (app.player.direction === 'left') {
+      //si le joueur est sur la grille
+      if (app.player.x - 1 >= 0) {
         //alors je diminu X de 1
         app.player.x--;
-        break;
-        //soit la direction est up
-      case 'up':
-        //alors je diminue Y de 1
-        app.player.y--;
-        break;
-        //soit la direction est down 
-      default:
-        //alors j'augmente Y de 1 
+      }
+      else {
+        console.log("sorry, you can't move foward")
+      }
+    }
+    //soit la direction est up
+    else if (app.player.direction === 'up'){
+      //si le joueur est sur la grille
+      if (app.player.y - 1 >= 0 ) {
+     //alors je diminue Y de 1
+       app.player.y--;
+      }
+      else {
+        console.log("sorry, you can't move foward")
+      }
+    }
+    //soit la direction est down 
+    else {
+       //si le joueur est sur la grille
+       if (app.player.y + 1 < app.board.height) {
+        // alors j'avance et j'augmente y de 1
         app.player.y++;
+      }
+      else {
+        console.log("sorry, you can't move foward")
+      }
     }
     // j'ai modifié la position, maintenant je peux redessiner la grille
     app.redrawBoard();
