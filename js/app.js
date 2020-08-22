@@ -95,6 +95,46 @@ var app = {
     app.clearBoard();
     app.drawBoard();
   },
+  turnLeft : function() {
+    //tourner à gauche c'est changer la direction du joueur.
+    //si on regarde en haut
+      if (app.player.direction === 'up') {
+        //alors on regarde à gauche
+        app.player.direction = 'left';
+      }
+    //sinon on regarde à gauche
+      else if (app.player.direction === 'left') {
+        //alors on regarde vers le bas
+        app.player.direction = 'down';
+      }
+    //si on regarde en bas
+      else if (app.player.direction === 'down') {
+        //alors on regarde à droite
+        app.player.direction = 'right';
+      }
+    //si on  regarde vers le haut
+      else app.player.direction = 'up';
+  },
+  turnRight : function() {
+    //tourner à droite c'est changer la direction du joueur.
+    //si on regarde en haut
+      if (app.player.direction === 'up') {
+        //alors on regarde à gauche
+        app.player.direction = 'right';
+      }
+    //sinon on regarde à gauche
+      else if (app.player.direction === 'left') {
+        //alors on regarde vers le bas
+        app.player.direction = 'up';
+      }
+    //si on regarde en bas
+      else if (app.player.direction === 'down') {
+        //alors on regarde à droite
+        app.player.direction = 'left';
+      }
+    //si on  regarde vers le haut
+      else app.player.direction = 'down';
+  },
 }
 document.addEventListener('DOMContentLoaded', app.init);
 
