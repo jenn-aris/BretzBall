@@ -15,6 +15,7 @@ var app = {
       height: 4,
       width: 6
     },
+    gameOver: false,
   init: function () {
     console.log('init !');
     //je défini une nouvelle propriété 
@@ -52,6 +53,8 @@ var app = {
          }
       }
     }
+    //on test si le jeu est fini.
+    app.isGameOver();
   },
   //méthode qui a la responsabilité de creer le joueur
   //addPlayer recupère en paramètre la valeur de currentCell
@@ -96,6 +99,10 @@ var app = {
     app.drawBoard();
   },
   turnLeft : function() {
+    //si le jeu est fini, alors je stop l'execution de la fonction
+    if (app.gameOver) {
+      return;
+    }
     //tourner à gauche c'est changer la direction du joueur.
     switch (app.player.direction) {
     //si on regarde en haut
@@ -120,6 +127,10 @@ var app = {
     app.redrawBoard();
   },
   turnRight : function() {
+    //si le jeu est fini, alors je stop l'execution de la fonction
+      if (app.gameOver) {
+        return;
+      }
     //tourner à droite c'est changer la direction du joueur.
     //si on regarde en haut
       if (app.player.direction === 'up') {
@@ -144,52 +155,10 @@ var app = {
     app.redrawBoard();
   },
   moveForward: function() {
-    // si la direction est right
-    if (app.player.direction === 'right') {
-      // si le joueur ne sors pas du plateau quand il aura avancé
-      if (app.player.x + 1 < app.board.width)
-        // alors j'augmente x de 1
-        app.player.x++;
-      // sinon on n'avance pas/ on peut mettre un message en console
-      else {
-        console.log('on ne peut plus avancer dans cette direction');
-      }
+    //si le jeu est fini, alors je stop l'execution de la fonction
+      if (app.gameOver) {
+      return;
     }
-    // sinon si la directino est left
-    else if(app.player.direction === 'left') {
-      if (app.player.x - 1 >= 0) {
-        // alors je diminue x de 1
-        app.player.x--;
-      }
-      else {
-        console.log('on ne peut plus avancer dans cette direction');
-      }
-    }
-    // sinon si la direction est up
-    else if(app.player.direction === 'up') {
-      if (app.player.y - 1 >= 0) {
-        // alors je diminue y de 1
-        app.player.y--
-      }
-      else {
-        console.log('on ne peut plus avancer dans cette direction');
-      }
-    }
-    // sinon (c'est que ce doit être down) 
-    else {
-      // si le joueur ne sors pas du plateau quand il aura avancé
-      if (app.player.y + 1 < app.board.height)
-        // alors j'augmente y de 1
-        app.player.y++;
-      // sinon on n'avance pas/ on peut mettre un message en console
-      else {
-        console.log('on ne peut plus avancer dans cette direction');
-      }
-    }
-    // j'ai moodifié la position je peux redessiner mon jeu
-    app.redrawBoard();
-  },
-  moveForward: function() {
     // si la direction est right
     if (app.player.direction === 'right') {
       // si le joueur ne sors pas du plateau quand il aura avancé
@@ -254,6 +223,15 @@ handleKeyup: function(event) {
       break;
   }
 },
+isGameOver: function () {
+  // est-ce que player.x et player.y est égale a targetCell.
+  //je vais comparer la position du joueur a la position d'arrivée.
+  //je retourne le resultat de cette comparaison
+  var gameResult = (app.player.x === app.targetCell.x && app.player.y === app.targetCell.y);
+  if (gameResult) {
+    app.gameOver = true;
+  }
+ },
 };
 
 document.addEventListener('DOMContentLoaded', app.init);

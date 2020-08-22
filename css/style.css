@@ -46,6 +46,25 @@ body {
   transform: rotate(90deg);
  }
 
+.bretzel .player {
+  width: 28px;
+  height: 32px;
+  border: 0;
+  background-image: url(../img/spritecatv2.png);
+  background-position:0 -64px;
+  transform: none;
+}
+
+.bretzel .player--left {
+  background-position:0 -32px;
+}
+.bretzel .player--up {
+  background-position:0 -96px;
+}
+.bretzel .player--down {
+  background-position:0 0;
+}
+
 .row {
  display : flex;
 }
