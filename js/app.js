@@ -20,9 +20,9 @@ var app = {
     //je défini une nouvelle propriété 
     app.board.element = document.getElementById('board');
     //j'execute le dessin de la grille
-    app.drawBoard()
+    app.drawBoard();
+    app.listenKeyboardEvents();
     },
-  //méthode qui a la responsabilité de dessiner la grille
   drawBoard : function () {
     //on creer une boucle dans une boucle
     for ( var rowCounter = 0 ; rowCounter < app.board.height ; rowCounter++) {    
@@ -59,7 +59,7 @@ var app = {
     // creer une div
     var playerElement = document.createElement('div');
     //lui ajouter la class 'player'
-    playerElement.className = 'player ' + app.player.direction;
+    playerElement.className = 'player player--' + app.player.direction;
     //cibler le parent et on lui insuffle player dedans
     parentCellElement.appendChild(playerElement);
   },
@@ -87,20 +87,19 @@ var app = {
     //retourner cette colonne nouvellement créer.
     return cellElement;
   },
-  clearBoard : function () {
+  clearBoard : function() {
    app.board.element.innerHTML = '';
   },
-  redrawBoard : function () {
+  redrawBoard : function() {
     //je vait appeller la methode qui peux effacer la grille, puis celle qui dessine la grille
     app.clearBoard();
     app.drawBoard();
   },
   turnLeft : function() {
     //tourner à gauche c'est changer la direction du joueur.
-   
-    switch(app.player.direction){
+    switch (app.player.direction) {
     //si on regarde en haut
-     case "up" :
+     case 'up' :
         //alors on regarde à gauche
         app.player.direction = 'left';
       break;
@@ -113,10 +112,10 @@ var app = {
       case 'down':
         //alors on regarde à droite
         app.player.direction = 'right';
-      break
+      break;
     //si on  regarde vers le haut
       default :
-       'up';
+       app.player.direction ='up';
     }
     app.redrawBoard();
   },
@@ -144,58 +143,120 @@ var app = {
       }
     app.redrawBoard();
   },
-  moveFoward : function () {
-    //attention ! Le joueur ne doit pas sortir de la grille
-    //soit la direction est right
+  moveForward: function() {
+    // si la direction est right
     if (app.player.direction === 'right') {
-      //si le joueur est sur la grille
-      if (app.player.x + 1 < app.board.width) {
-        // alors j'avance et j'augmente X de 1
+      // si le joueur ne sors pas du plateau quand il aura avancé
+      if (app.player.x + 1 < app.board.width)
+        // alors j'augmente x de 1
         app.player.x++;
-      }
+      // sinon on n'avance pas/ on peut mettre un message en console
       else {
-        console.log("sorry, you can't move foward")
+        console.log('on ne peut plus avancer dans cette direction');
       }
     }
-    //soit la direction est left
-    else if (app.player.direction === 'left') {
-      //si le joueur est sur la grille
+    // sinon si la directino est left
+    else if(app.player.direction === 'left') {
       if (app.player.x - 1 >= 0) {
-        //alors je diminu X de 1
+        // alors je diminue x de 1
         app.player.x--;
       }
       else {
-        console.log("sorry, you can't move foward")
+        console.log('on ne peut plus avancer dans cette direction');
       }
     }
-    //soit la direction est up
-    else if (app.player.direction === 'up'){
-      //si le joueur est sur la grille
-      if (app.player.y - 1 >= 0 ) {
-     //alors je diminue Y de 1
-       app.player.y--;
+    // sinon si la direction est up
+    else if(app.player.direction === 'up') {
+      if (app.player.y - 1 >= 0) {
+        // alors je diminue y de 1
+        app.player.y--
       }
       else {
-        console.log("sorry, you can't move foward")
+        console.log('on ne peut plus avancer dans cette direction');
       }
     }
-    //soit la direction est down 
+    // sinon (c'est que ce doit être down) 
     else {
-       //si le joueur est sur la grille
-       if (app.player.y + 1 < app.board.height) {
-        // alors j'avance et j'augmente y de 1
+      // si le joueur ne sors pas du plateau quand il aura avancé
+      if (app.player.y + 1 < app.board.height)
+        // alors j'augmente y de 1
         app.player.y++;
-      }
+      // sinon on n'avance pas/ on peut mettre un message en console
       else {
-        console.log("sorry, you can't move foward")
+        console.log('on ne peut plus avancer dans cette direction');
       }
     }
-    // j'ai modifié la position, maintenant je peux redessiner la grille
+    // j'ai moodifié la position je peux redessiner mon jeu
     app.redrawBoard();
   },
-}
-document.addEventListener('DOMContentLoaded', app.init);
+  moveForward: function() {
+    // si la direction est right
+    if (app.player.direction === 'right') {
+      // si le joueur ne sors pas du plateau quand il aura avancé
+      if (app.player.x + 1 < app.board.width)
+        // alors j'augmente x de 1
+        app.player.x++;
+      // sinon on n'avance pas/ on peut mettre un message en console
+      else {
+        console.log('on ne peut plus avancer dans cette direction');
+      }
+    }
+    // sinon si la directino est left
+    else if(app.player.direction === 'left') {
+      if (app.player.x - 1 >= 0) {
+        // alors je diminue x de 1
+        app.player.x--;
+      }
+      else {
+        console.log('on ne peut plus avancer dans cette direction');
+      }
+    }
+    // sinon si la direction est up
+    else if(app.player.direction === 'up') {
+      if (app.player.y - 1 >= 0) {
+        // alors je diminue y de 1
+        app.player.y--
+      }
+      else {
+        console.log('on ne peut plus avancer dans cette direction');
+      }
+    }
+    // sinon (c'est que ce doit être down) 
+    else {
+      // si le joueur ne sors pas du plateau quand il aura avancé
+      if (app.player.y + 1 < app.board.height)
+        // alors j'augmente y de 1
+        app.player.y++;
+      // sinon on n'avance pas/ on peut mettre un message en console
+      else {
+        console.log('on ne peut plus avancer dans cette direction');
+      }
+    }
+    // j'ai moodifié la position je peux redessiner mon jeu
+    app.redrawBoard();
+  },
+listenKeyboardEvents: function() {
+  // on se met en attente d'un évenement keyup
+  document.addEventListener('keyup', app.handleKeyup);
+},
+handleKeyup: function(event) {
+  // en fonction de la touche relachée
+  switch (event.code) {
+    // je réagis au cas par cas
+    case 'ArrowUp':
+      app.moveForward();
+      break;
+    case 'ArrowLeft':
+      app.turnLeft();
+      break;
+    case 'ArrowRight':
+      app.turnRight();
+      break;
+  }
+},
+};
 
+document.addEventListener('DOMContentLoaded', app.init);
 
 
 
