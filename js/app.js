@@ -55,6 +55,12 @@ var app = {
     }
     //on test si le jeu est fini.
     app.isGameOver();
+    //si le jeu est terminé
+    if (app.gameOver === true) {
+          //alors je change la class CSS de targetCell
+          currentCell.classList.remove('cell--target');
+          currentCell.classList.add('--Victory');
+        }
   },
   //méthode qui a la responsabilité de creer le joueur
   //addPlayer recupère en paramètre la valeur de currentCell
@@ -227,8 +233,7 @@ isGameOver: function () {
   // est-ce que player.x et player.y est égale a targetCell.
   //je vais comparer la position du joueur a la position d'arrivée.
   //je retourne le resultat de cette comparaison
-  var gameResult = (app.player.x === app.targetCell.x && app.player.y === app.targetCell.y);
-  if (gameResult) {
+  if (app.player.x === app.targetCell.x && app.player.y === app.targetCell.y){
     app.gameOver = true;
   }
  },

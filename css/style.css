@@ -83,3 +83,9 @@ body {
   background-position: center;
 
 }
+
+.--Victory {
+  background-image: url(../img/spritecatvictory.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
