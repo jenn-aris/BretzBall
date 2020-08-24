@@ -58,7 +58,10 @@ var app = {
     //si le jeu est terminé
     if (app.gameOver === true) {
           //alors je change la class CSS de targetCell
+          var player = document.getElementsByClassName('player');
+          console.log(player);
           currentCell.classList.remove('cell--target');
+          player[0].classList.remove('player');
           currentCell.classList.add('--Victory');
         }
   },
